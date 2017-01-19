@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
 
-  sender: {type: Integer, required: true, index: { unique: true }}
+  sender: {type: Number, required: true, index: { unique: true }}
 
 })
 
