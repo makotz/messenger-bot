@@ -5,9 +5,10 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const config = require('./config');
 const mongoose = require('mongoose');
+const User = require('./models/user');
 const app = express()
 
-mongoose.connect(config.databsase, function(err) {
+mongoose.connect(config.database, function(err) {
   if(err) {
     console.log(err);
   } else {
@@ -45,6 +46,19 @@ app.listen(app.get('port'), function() {
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     console.log(req.body.entry[0].messaging)
+
+    var user = new User({
+        sender: req.body.entry[0].messaging[0].sender.id
+    });
+
+    user.save(function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log("User created!");
+      }
+    });
+
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
