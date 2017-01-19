@@ -1,9 +1,19 @@
 'use strict'
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('request')
+const express = require('express');
+const bodyParser = require('body-parser');
+const request = require('request');
+const config = require('./config');
+const mongoose = require('mongoose');
 const app = express()
+
+mongoose.connect(config.databsase, function(err) {
+  if(err) {
+    console.log(err);
+  } else {
+    console.log("Yeeee");
+  }
+})
 
 app.set('port', (process.env.PORT || 5000))
 
