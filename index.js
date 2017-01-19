@@ -33,18 +33,13 @@ app.listen(app.get('port'), function() {
 
 
 app.post('/webhook/', function (req, res) {
-    console.log(req.body)
     let messaging_events = req.body.entry[0].messaging
-    console.log("sdfsd is..."+messaging_events[0])
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i]
-        console.log("event is..."+event)
         let sender = event.sender.id
-        console.log("event.message is......"+event.message)
-        console.log("event.message.text is..."+event.message.text)
         if (event.message && event.message.text) {
             let text = event.message.text
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            sendTextMessage(sender, "Sup, " + text.substring(0, 200))
         }
     }
     res.sendStatus(200)
